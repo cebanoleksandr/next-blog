@@ -1,0 +1,17 @@
+import { Post } from "@/utils/types";
+import PostItem from "./post-item";
+import classes from "./posts-grid.module.css";
+
+type Props = {
+  posts: Post[];
+}
+
+export default function PostsGrid({ posts }: Props) {
+  return (
+    <ul className={classes.grid}>
+      {posts.map(post => (
+        <PostItem key={post.slug} post={post} />
+      ))}
+    </ul>
+  );
+}
