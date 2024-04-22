@@ -2,13 +2,14 @@ import { NextApiRequest, NextApiResponse } from "next";
 import { MongoClient } from 'mongodb';
 import { v4 as uuid } from 'uuid';
 
-export const client = new MongoClient(process.env.mongodb_uri as string);
-export const Message = client.db(process.env.mongodb_database).collection('messages');
+const mongoUri = 'mongodb://0.0.0.0:27017';
+export const client = new MongoClient(mongoUri);
+export const Message = client.db('my-site').collection('messages');
 
 export async function connectDb(res: NextApiResponse<any>) {
   try {
     await client.connect();
-    await client.db(process.env.mongodb_database).command({ ping: 1 });
+    await client.db('my-site').command({ ping: 1 });
     console.log('Connected successfully to mongo server');
   } catch (error) {
     console.log('Cannot connect to mongo server');
